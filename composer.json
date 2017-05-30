@@ -1,0 +1,29 @@
+{
+    "name": "tigrov/yii2-pgsql-audit",
+    "description": "Audit for ActiveRecord models for Yii2, for PostgreSQL only",
+    "keywords": ["yii2", "extension", "pgsql", "postgres", "postgresql", "audit"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "source": "https://github.com/tigrov/yii2-pgsql-audit"
+    },
+    "authors": [
+        {
+            "name": "Sergei Tigrov",
+            "email": "rrr-r@ya.ru"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0",
+        "tigrov/yii2-pgsql": "~1.0",
+        "tigrov/yii2-pgsql-enum": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "tigrov\\pgsql\\audit\\": "src/"
+        }
+    },
+    "extra": {
+        "bootstrap": "tigrov\\pgsql\\audit\\Bootstrap"
+    }
+}
