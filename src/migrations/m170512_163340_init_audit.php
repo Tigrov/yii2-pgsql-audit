@@ -20,8 +20,12 @@ class m170512_163340_init_audit extends Migration
 {
     public function safeUp()
     {
-        ClassNameEnum::create([]);
-        RouteEnum::create([]);
+        if (!ClassNameEnum::exists()) {
+            ClassNameEnum::create([]);
+        }
+        if (!RouteEnum::exists()) {
+            RouteEnum::create([]);
+        }
         AuditTypeEnum::create(['insert', 'update', 'delete']);
 
         $this->createTable('{{%audit}}', [
