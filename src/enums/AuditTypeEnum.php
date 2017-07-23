@@ -4,13 +4,13 @@
  * @author Sergei Tigrov <rrr-r@ya.ru>
  */
 
-namespace tigrov\pgsql\audit;
+namespace tigrov\pgsql\audit\enums;
 
 /**
  * Enum type to store audit type values
  *
  * @author Sergei Tigrov <rrr-r@ya.ru>
  */
-class AuditType extends \tigrov\pgsql\enum\EnumBehavior
+class AuditTypeEnum extends \tigrov\pgsql\enum\EnumBehavior
 {
 }

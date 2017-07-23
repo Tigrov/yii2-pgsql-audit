@@ -6,8 +6,10 @@
 
 namespace tigrov\pgsql\audit;
 
+use tigrov\pgsql\audit\enums\AuditTypeEnum;
+use tigrov\pgsql\audit\enums\ClassNameEnum;
+use tigrov\pgsql\audit\enums\RouteEnum;
 use yii\db\ActiveQuery;
-use yii\db\Exception;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -19,6 +21,7 @@ use yii\web\IdentityInterface;
  * @property integer $pk_value
  * @property integer $user_id
  * @property \DateTime $created_at
+ * @property string $route
  * @property string $type_key
  * @property array $old_values
  * @property array $new_values
@@ -44,7 +47,7 @@ class Audit extends ActiveRecord
     public function behaviors()
     {
         return [
-            'type' => AuditType::className(),
+            'type' => AuditTypeEnum::className(),
         ];
     }
 
@@ -56,7 +59,7 @@ class Audit extends ActiveRecord
         return [
             [['old_values', 'new_values'], 'safe'],
             [['model_class', 'pk_value', 'type_key'], 'required'],
-            [['model_class', 'type_key'], 'string'],
+            [['model_class', 'route', 'type_key'], 'string'],
             [['pk_value', 'user_id'], 'integer'],
         ];
     }
@@ -74,12 +77,14 @@ class Audit extends ActiveRecord
      */
     public function save($runValidation = true, $attributeNames = null)
     {
-        try {
-            return parent::save($runValidation, $attributeNames);
-        } catch (Exception $e) {
-            ModelClass::add($this->model_class);
-            return parent::save($runValidation, $attributeNames);
+        if (!ClassNameEnum::has($this->model_class)) {
+            ClassNameEnum::add($this->model_class);
         }
+        if (!RouteEnum::has($this->route)) {
+            RouteEnum::add($this->route);
+        }
+
+        return parent::save($runValidation, $attributeNames);
     }
 
     /**

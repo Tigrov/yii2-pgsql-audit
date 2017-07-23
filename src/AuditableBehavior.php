@@ -244,6 +244,7 @@ class AuditableBehavior extends Behavior
             'model_class' => $model::className(),
             'pk_value' => $model->getPrimaryKey(),
             'user_id' => $this->getAgentUserId(),
+            'route' => \Yii::$app->controller->route,
             'type_key' => $typeKey,
             'old_values' => $this->dbTypecast($oldValues),
             'new_values' => $this->dbTypecast($newValues),

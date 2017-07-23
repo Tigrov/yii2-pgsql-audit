@@ -6,9 +6,10 @@
 
 namespace tigrov\pgsql\audit\migrations;
 
+use tigrov\pgsql\audit\enums\RouteEnum;
 use yii\db\Migration;
-use tigrov\pgsql\audit\ModelClass;
-use tigrov\pgsql\audit\AuditType;
+use tigrov\pgsql\audit\enums\ClassNameEnum;
+use tigrov\pgsql\audit\enums\AuditTypeEnum;
 
 /**
  * Migration to initialize the audit table
@@ -19,19 +20,18 @@ class m170512_163340_init_audit extends Migration
 {
     public function safeUp()
     {
-        // First time create model_class enum for $identityClass only. Other model classes will be added as you go.
-        $user = \Yii::$app->has('user') ? \Yii::$app->get('user', false) : null;
-        $identityClass = $user ? $user->identityClass : '';
-        ModelClass::create([$identityClass]);
-        AuditType::create(['insert', 'update', 'delete']);
+        ClassNameEnum::create([]);
+        RouteEnum::create([]);
+        AuditTypeEnum::create(['insert', 'update', 'delete']);
 
         $this->createTable('{{%audit}}', [
             'id' => 'bigpk',
-            'model_class' => $this->db->quoteColumnName(ModelClass::typeName()) . ' NOT NULL',
+            'model_class' => $this->db->quoteColumnName(ClassNameEnum::typeName()) . ' NOT NULL',
             'pk_value' => $this->integer()->notNull(),
             'user_id' => $this->integer(),
             'created_at' => $this->timestamp()->notNull()->defaultExpression('now()'),
-            'type_key' => $this->db->quoteColumnName(AuditType::typeName()) . ' NOT NULL',
+            'route' => $this->db->quoteColumnName(RouteEnum::typeName()),
+            'type_key' => $this->db->quoteColumnName(AuditTypeEnum::typeName()) . ' NOT NULL',
             'old_values' => 'jsonb',
             'new_values' => 'jsonb',
         ]);
@@ -44,7 +44,8 @@ class m170512_163340_init_audit extends Migration
     {
         $this->dropTable('{{%audit}}');
 
-        ModelClass::drop();
-        AuditType::drop();
+        ClassNameEnum::drop();
+        RouteEnum::drop();
+        AuditTypeEnum::drop();
     }
 }

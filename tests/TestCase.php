@@ -65,16 +65,25 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function mockApplication($config = [], $appClass = '\yii\console\Application')
     {
-        new $appClass(ArrayHelper::merge([
+        $_SERVER['argv'] = ['yii', 'test/index'];
+
+        $app = new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
             'vendorPath' => dirname(__DIR__) . '/vendor',
+            'controllerMap' => [
+                'test' => TestConsoleController::className(),
+            ],
         ], $config));
+
+        $app->handleRequest($app->getRequest());
     }
 
     protected function mockWebApplication($config = [], $appClass = '\yii\web\Application')
     {
-        new $appClass(ArrayHelper::merge([
+        $_GET['r'] = 'test/index';
+
+        $app = new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
             'vendorPath' => dirname(__DIR__) . '/vendor',
@@ -85,7 +94,12 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
                     'scriptUrl' => '/index.php',
                 ],
             ],
+            'controllerMap' => [
+                'test' => TestWebController::className(),
+            ],
         ], $config));
+
+        $app->handleRequest($app->getRequest());
     }
 
     /**

@@ -41,6 +41,7 @@ class AuditableBehaviorTest extends TestCase
             'model_class' => AuditableModel::className(),
             'pk_value' => $model->getPrimaryKey(),
             'user_id' => \Yii::$app->has('user') ? \Yii::$app->getUser()->getId() : null,
+            'route' => 'test/index',
             'type_key' => 'insert',
             'old_values' => null,
             'new_values' => [
@@ -69,6 +70,7 @@ class AuditableBehaviorTest extends TestCase
             'model_class' => AuditableModel::className(),
             'pk_value' => $model->getPrimaryKey(),
             'user_id' => $createdBy,
+            'route' => 'test/index',
             'type_key' => 'insert',
             'old_values' => null,
             'new_values' => [
@@ -84,6 +86,7 @@ class AuditableBehaviorTest extends TestCase
             'model_class' => AuditableModel::className(),
             'pk_value' => $model->getPrimaryKey(),
             'user_id' => $updatedBy,
+            'route' => 'test/index',
             'type_key' => 'update',
             'old_values' => [
                 'name' => $firstExpected['new_values']['name'],
@@ -116,6 +119,7 @@ class AuditableBehaviorTest extends TestCase
             'model_class' => AuditableModel::className(),
             'pk_value' => $model->getPrimaryKey(),
             'user_id' => $model->agentUserId,
+            'route' => 'test/index',
             'type_key' => 'delete',
             'old_values' => [
                 'name' => $model->name,

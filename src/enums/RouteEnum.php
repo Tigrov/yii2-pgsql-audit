@@ -4,13 +4,13 @@
  * @author Sergei Tigrov <rrr-r@ya.ru>
  */
 
-namespace tigrov\pgsql\audit;
+namespace tigrov\pgsql\audit\enums;
 
 /**
- * Enum type to store model class values
+ * Enum type to store class names
  *
  * @author Sergei Tigrov <rrr-r@ya.ru>
  */
-class ModelClass extends \tigrov\pgsql\enum\EnumBehavior
+class RouteEnum extends \tigrov\pgsql\enum\EnumBehavior
 {
 }
