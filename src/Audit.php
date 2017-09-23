@@ -123,14 +123,17 @@ class Audit extends ActiveRecord
      * Find audit records by model
      *
      * @param ActiveRecord $model ActiveRecord model
-     * @return ActiveQuery
+     * @return ActiveQuery|null
      */
     public static function findByModel(ActiveRecord $model)
     {
-        return Audit::find()->where([
-            'model_class' => $model::className(),
-            'pk_value' => $model->getPrimaryKey(),
-        ]);
+        if (ClassNameEnum::has($model::className())) {
+            return Audit::find()->where([
+                'model_class' => $model::className(),
+                'pk_value' => $model->getPrimaryKey(),
+            ]);
+        }
+        return null;
     }
 
     /**
@@ -147,7 +150,7 @@ class Audit extends ActiveRecord
     /**
      * Revert to the current audit version
      *
-     * @return null|ActiveRecord reverted model
+     * @return ActiveRecord|null reverted model
      */
     public function revert()
     {
@@ -158,25 +161,28 @@ class Audit extends ActiveRecord
         }
         $requiringUpdates = $model->filterAuditableValues($model->getAttributes());
 
-        $query = static::findByModel($model);
-        $query->select(['old_values'])
-            ->andWhere(['>=', 'id', $this->id])
-            ->andWhere(['!=', 'type_key', 'insert'])
-            ->orderBy(['id' => SORT_ASC]);
+        if ($query = static::findByModel($model)) {
+            $query->select(['old_values'])
+                ->andWhere(['>=', 'id', $this->id])
+                ->andWhere(['!=', 'type_key', 'insert'])
+                ->orderBy(['id' => SORT_ASC]);
 
-        foreach ($query->each() as $audit) {
-            if (!$requiringUpdates) {
-                break;
+            foreach ($query->each() as $audit) {
+                if (!$requiringUpdates) {
+                    break;
+                }
+
+                $values = array_intersect_key($audit->old_values, $requiringUpdates);
+                \Yii::configure($model, $values);
+
+                $requiringUpdates = array_diff_key($requiringUpdates, $audit->old_values);
             }
 
-            $values = array_intersect_key($audit->old_values, $requiringUpdates);
-            \Yii::configure($model, $values);
-
-            $requiringUpdates = array_diff_key($requiringUpdates, $audit->old_values);
+            if ($model->save(false)) {
+                return $model;
+            }
         }
 
-        return $model->save(false)
-            ? $model
-            : null;
+        return null;
     }
 }

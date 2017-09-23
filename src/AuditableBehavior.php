@@ -144,8 +144,10 @@ class AuditableBehavior extends Behavior
      */
     public function getFirstAudit()
     {
-        $query = Audit::findByModel($this->owner);
-        return $query->orderBy(['id' => SORT_ASC])->limit(1)->one();
+        if ($query = Audit::findByModel($this->owner)) {
+            return $query->orderBy(['id' => SORT_ASC])->limit(1)->one();
+        }
+        return null;
     }
 
     /**
@@ -155,8 +157,10 @@ class AuditableBehavior extends Behavior
      */
     public function getLastAudit()
     {
-        $query = Audit::findByModel($this->owner);
-        return $query->orderBy(['id' => SORT_DESC])->limit(1)->one();
+        if ($query = Audit::findByModel($this->owner)) {
+            return $query->orderBy(['id' => SORT_DESC])->limit(1)->one();
+        }
+        return null;
     }
 
     /**
@@ -165,7 +169,7 @@ class AuditableBehavior extends Behavior
      * @param Audit $audit
      * @return \DateTime|null
      */
-    protected function getTimestamp(Audit $audit)
+    protected function getTimestamp($audit)
     {
         return $audit ? $audit->created_at : null;
     }
@@ -176,7 +180,7 @@ class AuditableBehavior extends Behavior
      * @param Audit $audit
      * @return IdentityInterface|null
      */
-    protected function getUser(Audit $audit)
+    protected function getUser($audit)
     {
         return $audit ? $audit->getUser() : null;
     }

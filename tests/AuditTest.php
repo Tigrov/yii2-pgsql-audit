@@ -8,6 +8,17 @@ use yii\db\Expression;
 
 class AuditTest extends TestCase
 {
+    public function testLackOfAudit()
+    {
+        $model = new AuditableModel;
+        $this->assertNull($model->firstAudit);
+        $this->assertNull($model->lastAudit);
+        $this->assertNull($model->createdAt);
+        $this->assertNull($model->createdBy);
+        $this->assertNull($model->updatedAt);
+        $this->assertNull($model->updatedBy);
+    }
+
     public function testGetModel()
     {
         $model = new AuditableModel;
