@@ -18,6 +18,12 @@
         "tigrov/yii2-pgsql": "~1.0",
         "tigrov/yii2-pgsql-enum": "~1.0"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "tigrov\\pgsql\\audit\\": "src/"
