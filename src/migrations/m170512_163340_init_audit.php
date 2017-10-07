@@ -26,7 +26,7 @@ class m170512_163340_init_audit extends Migration
         if (!RouteEnum::exists()) {
             RouteEnum::create([]);
         }
-        AuditTypeEnum::create(['insert', 'update', 'delete']);
+        AuditTypeEnum::create();
 
         $this->createTable('{{%audit}}', [
             'id' => 'bigpk',

@@ -13,4 +13,7 @@ namespace tigrov\pgsql\audit\enums;
  */
 class AuditTypeEnum extends \tigrov\pgsql\enum\EnumBehavior
 {
+    const INSERT = 'insert';
+    const UPDATE = 'update';
+    const DELETE = 'delete';
 }

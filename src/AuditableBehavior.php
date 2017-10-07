@@ -6,6 +6,7 @@
 
 namespace tigrov\pgsql\audit;
 
+use tigrov\pgsql\audit\enums\AuditTypeEnum;
 use yii\base\Behavior;
 use yii\base\Event;
 use yii\db\ActiveQuery;
@@ -192,7 +193,7 @@ class AuditableBehavior extends Behavior
      */
     public function afterInsert(AfterSaveEvent $event)
     {
-        $this->afterSave('insert', $event);
+        $this->afterSave(AuditTypeEnum::INSERT, $event);
     }
 
     /**
@@ -202,7 +203,7 @@ class AuditableBehavior extends Behavior
      */
     public function afterUpdate(AfterSaveEvent $event)
     {
-        $this->afterSave('update', $event);
+        $this->afterSave(AuditTypeEnum::UPDATE, $event);
     }
 
     /**
@@ -215,7 +216,7 @@ class AuditableBehavior extends Behavior
             /** @var ActiveRecord $model */
             $model = $this->owner;
             $newValues = $model->getAttributes(array_keys($oldValues));
-            $this->insert($typeKey, $typeKey == 'insert' ? null : $oldValues, $newValues);
+            $this->insert($typeKey, $typeKey == AuditTypeEnum::INSERT ? null : $oldValues, $newValues);
         }
     }
 
@@ -228,7 +229,7 @@ class AuditableBehavior extends Behavior
     {
         /** @var ActiveRecord $model */
         $model = $this->owner;
-        $this->insert('delete', $model->getAttributes(null, $this->getNonAuditableAttributes()));
+        $this->insert(AuditTypeEnum::DELETE, $model->getAttributes(null, $this->getNonAuditableAttributes()));
     }
 
     /**
