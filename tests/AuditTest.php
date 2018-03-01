@@ -48,7 +48,7 @@ class AuditTest extends TestCase
         $this->assertSame($total, count($audits));
 
         foreach ($audits as $audit) {
-            $this->assertSame($model::className(), $audit->model_class);
+            $this->assertSame(get_class($model), $audit->model_class);
             $this->assertSame($model->primaryKey, $audit->pk_value);
         }
     }

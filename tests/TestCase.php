@@ -72,7 +72,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'basePath' => __DIR__,
             'vendorPath' => dirname(__DIR__) . '/vendor',
             'controllerMap' => [
-                'test' => TestConsoleController::className(),
+                'test' => TestConsoleController::class,
             ],
         ], $config));
 
@@ -95,7 +95,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
                 ],
             ],
             'controllerMap' => [
-                'test' => TestWebController::className(),
+                'test' => TestWebController::class,
             ],
         ], $config));
 

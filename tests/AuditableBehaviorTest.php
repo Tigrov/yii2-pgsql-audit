@@ -38,7 +38,7 @@ class AuditableBehaviorTest extends TestCase
         $this->assertTrue($model->save(false));
 
         $expected = [
-            'model_class' => AuditableModel::className(),
+            'model_class' => AuditableModel::class,
             'pk_value' => $model->getPrimaryKey(),
             'user_id' => \Yii::$app->has('user') ? \Yii::$app->getUser()->getId() : null,
             'route' => 'test/index',
@@ -67,7 +67,7 @@ class AuditableBehaviorTest extends TestCase
         $updatedBy = 10;
 
         $firstExpected = [
-            'model_class' => AuditableModel::className(),
+            'model_class' => AuditableModel::class,
             'pk_value' => $model->getPrimaryKey(),
             'user_id' => $createdBy,
             'route' => 'test/index',
@@ -83,7 +83,7 @@ class AuditableBehaviorTest extends TestCase
         $model->setAgentUserId($updatedBy);
         $this->assertTrue($model->save(false));
         $lastExpected = [
-            'model_class' => AuditableModel::className(),
+            'model_class' => AuditableModel::class,
             'pk_value' => $model->getPrimaryKey(),
             'user_id' => $updatedBy,
             'route' => 'test/index',
@@ -116,7 +116,7 @@ class AuditableBehaviorTest extends TestCase
     public function testAfterDelete($model)
     {
         $expected = [
-            'model_class' => AuditableModel::className(),
+            'model_class' => AuditableModel::class,
             'pk_value' => $model->getPrimaryKey(),
             'user_id' => $model->agentUserId,
             'route' => 'test/index',

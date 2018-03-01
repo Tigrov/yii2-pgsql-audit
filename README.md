@@ -18,6 +18,8 @@ and for `ActiveRecord` models with `integer` type of **primary key**.
 
 If you have different of `integer` types, you can inherit the classes and make the necessary changes. Also you need to make changes in the audit table schema.
 
+Since 1.2.0 requires PHP >= 5.5
+
 Dependents
 ----------
 
@@ -81,7 +83,7 @@ class Model extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            AuditableBehavior::className(),
+            AuditableBehavior::class,
         ];
     }
 }

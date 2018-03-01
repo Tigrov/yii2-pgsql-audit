@@ -47,7 +47,7 @@ class Audit extends ActiveRecord
     public function behaviors()
     {
         return [
-            'type' => AuditTypeEnum::className(),
+            'type' => AuditTypeEnum::class,
         ];
     }
 
@@ -127,9 +127,10 @@ class Audit extends ActiveRecord
      */
     public static function findByModel(ActiveRecord $model)
     {
-        if (ClassNameEnum::has($model::className())) {
+        $className = get_class($model);
+        if (ClassNameEnum::has($className)) {
             return Audit::find()->where([
-                'model_class' => $model::className(),
+                'model_class' => $className,
                 'pk_value' => $model->getPrimaryKey(),
             ]);
         }

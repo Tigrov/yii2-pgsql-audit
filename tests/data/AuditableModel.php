@@ -12,7 +12,7 @@ class AuditableModel extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            'audit' => AuditableBehavior::className(),
+            'audit' => AuditableBehavior::class,
         ];
     }
 }

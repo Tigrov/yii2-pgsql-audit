@@ -246,7 +246,7 @@ class AuditableBehavior extends Behavior
         $model = $this->owner;
 
         return (new Audit([
-            'model_class' => $model::className(),
+            'model_class' => get_class($model),
             'pk_value' => $model->getPrimaryKey(),
             'user_id' => $this->getAgentUserId(),
             'route' => \Yii::$app->controller->route,
