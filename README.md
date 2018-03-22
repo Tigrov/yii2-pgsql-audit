@@ -24,7 +24,7 @@ Dependents
 ----------
 
 The extension depends on follow extensions:
-* [Tigrov/yii2-pgsql](https://github.com/Tigrov/yii2-pgsql) (it has some limitations)
+* [Tigrov/yii2-pgsql](https://github.com/Tigrov/yii2-pgsql)
 * [Tigrov/yii2-pgsql-enum](https://github.com/Tigrov/yii2-pgsql-enum)
 
 Installation
