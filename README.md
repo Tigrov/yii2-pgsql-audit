@@ -49,26 +49,8 @@ to the require section of your `composer.json` file.
  
 Configuration
 -------------
-Once the extension is installed, add following code to your application configuration:
+Once the extension is installed, apply migrations:
 
-```php
-return [
-    //...
-    'components' => [
-        'db' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'pgsql:host=localhost;dbname=<database>',
-            'username' => 'postgres',
-            'password' => '<password>',
-            'schemaMap' => [
-                'pgsql'=> 'tigrov\pgsql\Schema',
-            ],
-        ],
-    ],
-];
-```
-
-Apply migrations
 ```
 yii migrate
 ```
