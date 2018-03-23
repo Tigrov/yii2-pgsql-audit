@@ -77,14 +77,14 @@ $model = new Model;
 $model->value = 'a value';
 $model->save();
 
-$model->createdAt; // \DateTime
+$model->createdAt; // created date and time
 $model->createdBy; // instance of \Yii::$app->user->identityClass
 
 // then update it
 $model->value = 'new value';
 $model->save();
 
-$model->updatedAt; // \DateTime
+$model->updatedAt; // updated date and time
 $model->updatedBy; // instance of \Yii::$app->user->identityClass
 
 // additional features
