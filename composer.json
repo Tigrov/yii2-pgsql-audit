@@ -15,8 +15,7 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "yiisoft/yii2": "~2.0.0",
-        "tigrov/yii2-pgsql": "~1.0",
+        "yiisoft/yii2": "^2.0.14.2",
         "tigrov/yii2-pgsql-enum": "~1.0"
     },
     "repositories": [

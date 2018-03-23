@@ -8,9 +8,6 @@ return [
             'username' => 'postgres',
             'password' => '',
             'charset' => 'utf8',
-            'schemaMap' => [
-                'pgsql'=> 'tigrov\pgsql\Schema',
-            ],
         ],
     ],
 ];

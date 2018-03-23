@@ -53,7 +53,7 @@ class AuditableBehaviorTest extends TestCase
         $this->assertSame($expected, $model->lastAudit->getAttributes(null, ['id', 'created_at']));
 
         $now = new \DateTime;
-        $this->assertLessThanOrEqual(1, static::convertIntervalToSeconds($now->diff($model->createdAt)));
+        $this->assertLessThanOrEqual(1, static::convertIntervalToSeconds($now->diff(new \DateTime($model->createdAt))));
 
         return $model;
     }
@@ -105,7 +105,7 @@ class AuditableBehaviorTest extends TestCase
         $this->assertSame(\Yii::$app->has('user') ? $identityClass::findIdentity($updatedBy) : null, $model->updatedBy);
 
         $now = new \DateTime;
-        $this->assertLessThanOrEqual(1, static::convertIntervalToSeconds($now->diff($model->updatedAt)));
+        $this->assertLessThanOrEqual(1, static::convertIntervalToSeconds($now->diff(new \DateTime($model->updatedAt))));
 
         return $model;
     }
