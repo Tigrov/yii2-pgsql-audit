@@ -6,6 +6,7 @@
 
 namespace tigrov\pgsql\audit\migrations;
 
+use tigrov\pgsql\audit\Audit;
 use tigrov\pgsql\audit\enums\RouteEnum;
 use yii\db\Migration;
 use tigrov\pgsql\audit\enums\ClassNameEnum;
@@ -28,7 +29,7 @@ class m170512_163340_init_audit extends Migration
         }
         AuditTypeEnum::create();
 
-        $this->createTable('{{%audit}}', [
+        $this->createTable(Audit::tableName(), [
             'id' => 'bigpk',
             'model_class' => $this->db->quoteColumnName(ClassNameEnum::typeName()) . ' NOT NULL',
             'pk_value' => $this->integer()->notNull(),
@@ -46,7 +47,7 @@ class m170512_163340_init_audit extends Migration
 
     public function safeDown()
     {
-        $this->dropTable('{{%audit}}');
+        $this->dropTable(Audit::tableName());
 
         ClassNameEnum::drop();
         RouteEnum::drop();
