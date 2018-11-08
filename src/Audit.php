@@ -99,7 +99,7 @@ class Audit extends ActiveRecord
         }
 
         /** @var IdentityInterface $identityClass */
-        $identityClass = \Yii::$app->getUser()->identityClass;
+        $identityClass = \Yii::$app->get('user')->identityClass;
         return $identityClass::findIdentity($this->user_id);
     }
 
