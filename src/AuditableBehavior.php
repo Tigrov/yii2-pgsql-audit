@@ -67,8 +67,8 @@ class AuditableBehavior extends Behavior
     {
         return $this->_userId !== null
             ? $this->_userId
-            : (\Yii::$app->has('user')
-                ? (\Yii::$app->get('user')->getId()
+            : (\Yii::$app instanceof \yii\web\Application && \Yii::$app->has('user')
+                ? (\Yii::$app->getUser()->getId()
                     ?: ($this->owner instanceof IdentityInterface
                         ? $this->owner->getId()
                         : null))

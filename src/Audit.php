@@ -54,19 +54,6 @@ class Audit extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
-        return [
-            [['old_values', 'new_values'], 'safe'],
-            [['model_class', 'pk_value', 'type_key'], 'required'],
-            [['model_class', 'route', 'type_key'], 'string'],
-            [['pk_value', 'user_id'], 'integer'],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function transactions()
     {
         return [static::SCENARIO_DEFAULT => static::OP_INSERT];
@@ -94,12 +81,12 @@ class Audit extends ActiveRecord
      */
     public function getUser()
     {
-        if (!\Yii::$app->has('user') || !$this->user_id) {
+        if ($this->user_id === null || !\Yii::$app instanceof \yii\web\Application || !\Yii::$app->has('user')) {
             return null;
         }
 
         /** @var IdentityInterface $identityClass */
-        $identityClass = \Yii::$app->get('user')->identityClass;
+        $identityClass = \Yii::$app->getUser()->identityClass;
         return $identityClass::findIdentity($this->user_id);
     }
 
