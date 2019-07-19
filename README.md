@@ -53,13 +53,13 @@ Once the extension is installed, configure migrations in `config.php`:
 
 ```php
 return [
-    ...
+    // ...
     'controllerMap' => [
         'migrate' => [
             'class' => 'yii\console\controllers\MigrationController',
         ],
     ],
-    ...
+    // ...
 ];
 ```
 
