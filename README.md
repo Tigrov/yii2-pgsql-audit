@@ -49,7 +49,21 @@ to the require section of your `composer.json` file.
  
 Configuration
 -------------
-Once the extension is installed, apply migrations:
+Once the extension is installed, configure migrations in `config.php`:
+
+```php
+return [
+    ...
+    'controllerMap' => [
+        'migrate' => [
+            'class' => 'yii\console\controllers\MigrationController',
+        ],
+    ],
+    ...
+];
+```
+
+and apply migrations:
 
 ```
 yii migrate
