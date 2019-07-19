@@ -7,9 +7,6 @@ addons:
 language: php
 
 php:
-  - 5.6
-  - 7.0
-  - 7.1
   - 7.2
   - 7.3
 
@@ -26,9 +23,6 @@ install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - travis_retry composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
   - mkdir -p build/logs
-
-script:
-  - phpunit
 
 after_script:
   - |
