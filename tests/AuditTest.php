@@ -15,8 +15,10 @@ class AuditTest extends TestCase
         $this->assertNull($model->lastAudit);
         $this->assertNull($model->createdAt);
         $this->assertNull($model->createdBy);
+        $this->assertNull($model->createdById);
         $this->assertNull($model->updatedAt);
         $this->assertNull($model->updatedBy);
+        $this->assertNull($model->updatedById);
     }
 
     public function testGetModel()
@@ -29,6 +31,9 @@ class AuditTest extends TestCase
 
         $audit = $model->lastAudit;
         $this->assertEquals($model->getAttributes(null, ['created_at']), $audit->model->getAttributes(null, ['created_at']));
+
+        $this->assertEquals(10, $model->createdById);
+        $this->assertEquals(10, $model->updatedById);
 
         return $model;
     }

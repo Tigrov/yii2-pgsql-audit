@@ -16,10 +16,10 @@ use yii\web\IdentityInterface;
 /**
  * This is the model class for table "audit".
  *
- * @property integer $id
+ * @property int $id
  * @property string $model_class
- * @property integer $pk_value
- * @property integer $user_id
+ * @property int $pk_value
+ * @property int $user_id
  * @property \DateTime $created_at
  * @property string $route
  * @property string $type_key

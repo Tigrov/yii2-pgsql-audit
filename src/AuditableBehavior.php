@@ -17,11 +17,13 @@ use yii\web\IdentityInterface;
 /**
  * Behavior to audit an ActiveRecord model
  *
- * @property integer $agentUserId
+ * @property int $agentUserId
  * @property \DateTime $createdAt
- * @property integer $createdBy
+ * @property IdentityInterface $createdBy
+ * @property int $createdById
  * @property \DateTime $updatedAt
- * @property integer $updatedBy
+ * @property IdentityInterface $updatedBy
+ * @property int $updatedById
  * @property Audit $firstAudit
  * @property Audit $lastAudit
  * @property ActiveQuery $auditQuery
@@ -119,6 +121,16 @@ class AuditableBehavior extends Behavior
     }
 
     /**
+     * Get the User who created the model first time
+     *
+     * @return int|null
+     */
+    public function getCreatedById()
+    {
+        return $this->getUserId($this->firstAudit);
+    }
+
+    /**
      * Get date and time when the model was updated
      *
      * @return \DateTime|null
@@ -136,6 +148,16 @@ class AuditableBehavior extends Behavior
     public function getUpdatedBy()
     {
         return $this->getUser($this->lastAudit);
+    }
+
+    /**
+     * Get the User who updated the model
+     *
+     * @return int|null
+     */
+    public function getUpdatedById()
+    {
+        return $this->getUserId($this->lastAudit);
     }
 
     /**
@@ -184,6 +206,17 @@ class AuditableBehavior extends Behavior
     protected function getUser($audit)
     {
         return $audit ? $audit->getUser() : null;
+    }
+
+    /**
+     * Get an User of an audit
+     *
+     * @param Audit $audit
+     * @return int|null
+     */
+    protected function getUserId($audit)
+    {
+        return $audit ? $audit->user_id : null;
     }
 
     /**
